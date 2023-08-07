@@ -1,15 +1,13 @@
 package book.shop.bookstore.controller;
 
+import book.shop.bookstore.dto.BookSearchParameters;
 import book.shop.bookstore.dto.request.CreateBookRequestDto;
 import book.shop.bookstore.dto.response.BookDto;
 import book.shop.bookstore.service.BookService;
 import java.util.List;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/books")
@@ -34,4 +32,22 @@ public class BookController {
     public List<BookDto> getAllBooks() {
         return bookService.findAll();
     }
+
+    @PutMapping("/{id}")
+    public BookDto updateBook(@PathVariable Long id, @RequestBody CreateBookRequestDto requestDto) {
+        return bookService.update(id, requestDto);
+    }
+
+    @GetMapping("/search")
+    public List<BookDto> search(BookSearchParameters params) {
+        return bookService.search(params);
+    }
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteBook(@PathVariable Long id) {
+        bookService.delete(id);
+    }
+
+
 }

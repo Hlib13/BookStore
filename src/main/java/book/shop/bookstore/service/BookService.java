@@ -3,6 +3,8 @@ package book.shop.bookstore.service;
 import book.shop.bookstore.dto.BookSearchParameters;
 import book.shop.bookstore.dto.request.CreateBookRequestDto;
 import book.shop.bookstore.dto.response.BookDto;
+import org.springframework.data.domain.Pageable;
+
 import java.util.List;
 
 public interface BookService {
@@ -10,7 +12,7 @@ public interface BookService {
 
     public BookDto getBookById(Long id);
 
-    List<BookDto> findAll();
+    List<BookDto> findAll(Pageable pageable);
 
     BookDto update(Long id, CreateBookRequestDto createBookRequestDto);
 

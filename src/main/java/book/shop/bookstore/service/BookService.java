@@ -1,11 +1,10 @@
 package book.shop.bookstore.service;
 
-import book.shop.bookstore.dto.BookSearchParameters;
-import book.shop.bookstore.dto.request.CreateBookRequestDto;
-import book.shop.bookstore.dto.response.BookDto;
-import org.springframework.data.domain.Pageable;
-
+import book.shop.bookstore.dto.book.BookDto;
+import book.shop.bookstore.dto.book.BookSearchParameters;
+import book.shop.bookstore.dto.book.CreateBookRequestDto;
 import java.util.List;
+import org.springframework.data.domain.Pageable;
 
 public interface BookService {
     BookDto save(CreateBookRequestDto product);

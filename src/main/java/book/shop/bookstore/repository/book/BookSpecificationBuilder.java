@@ -1,13 +1,10 @@
 package book.shop.bookstore.repository.book;
 
-import book.shop.bookstore.dto.BookSearchParameters;
+import book.shop.bookstore.dto.book.BookSearchParameters;
 import book.shop.bookstore.model.Book;
 import book.shop.bookstore.repository.SpecificationBuilder;
 import book.shop.bookstore.repository.SpecificationProviderManager;
-import book.shop.bookstore.repository.book.AuthorSpecificationProvider;
-import book.shop.bookstore.repository.book.TitleSpecificationProvider;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Component;
 

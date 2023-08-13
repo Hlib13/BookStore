@@ -1,0 +1,10 @@
+databaseChangeLog:
+  - changeSet:
+      id: inset-role-admin-user2
+      author: hlib13
+      changes:
+        - insert:
+           tableName: user_roles
+           columns:
+             - column: {name: user_id, value: 2}
+             - column: {name: role_id, value: 2}

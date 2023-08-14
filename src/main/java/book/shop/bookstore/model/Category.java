@@ -16,7 +16,7 @@ import org.hibernate.annotations.Where;
 
 @Data
 @Entity
-@SQLDelete(sql = "UPDATE categorys SET is_deleted = true WHERE id=?")
+@SQLDelete(sql = "UPDATE categories SET is_deleted = true WHERE id=?")
 @Where(clause = "is_deleted=false")
 @Table(name = "categories")
 public class Category {
@@ -30,6 +30,8 @@ public class Category {
     @EqualsAndHashCode.Exclude
     @ManyToMany(mappedBy = "categories")
     private Set<Book> books;
+    @Column(nullable = false)
+    private boolean isDeleted = false;
 
     public void addBook(Book book) {
         books.add(book);

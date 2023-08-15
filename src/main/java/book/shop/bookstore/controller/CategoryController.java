@@ -40,7 +40,6 @@ public class CategoryController {
     }
 
     @PostMapping
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @ResponseStatus(HttpStatus.CREATED)
     @Operation(summary = "Create a new category (Only for admin)")
     @ApiResponse(responseCode = "201", description = "Category created successfully", content = {
@@ -52,7 +51,6 @@ public class CategoryController {
     }
 
     @PutMapping("/{id}")
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @Operation(summary = "Update category by ID")
     @ApiResponse(responseCode = "200", description = "Category was updated!", content = {
             @Content(mediaType = "application/json",
@@ -71,7 +69,6 @@ public class CategoryController {
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @Operation(summary = "Delete category", description = "Delete category by id")
     public void deleteBook(@PathVariable Long id) {
         categoryService.deleteById(id);

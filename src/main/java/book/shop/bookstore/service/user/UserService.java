@@ -1,4 +1,4 @@
-package book.shop.bookstore.service;
+package book.shop.bookstore.service.user;
 
 import book.shop.bookstore.dto.user.UserRegistrationRequestDto;
 import book.shop.bookstore.dto.user.UserResponseDto;

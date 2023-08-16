@@ -1,4 +1,4 @@
-package book.shop.bookstore.service;
+package book.shop.bookstore.service.role;
 
 import book.shop.bookstore.model.Role;
 import book.shop.bookstore.model.RoleName;

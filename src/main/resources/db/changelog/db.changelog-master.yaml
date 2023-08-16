@@ -21,3 +21,17 @@ databaseChangeLog:
       file: db/changelog/changes/10-create-book-category-table.yaml
   - include:
       file: db/changelog/changes/11-insert-role-admin-new.yaml
+  - include:
+      file: db/changelog/changes/12-create-shopping-cart-table.yaml
+  - include:
+      file: db/changelog/changes/13-create-shopping-cart-user-table.yaml
+  - include:
+      file: db/changelog/changes/14-create-cart-item-table.yaml
+  - include:
+      file: db/changelog/changes/15-shopping_carts_cart_items.yaml
+  - include:
+      file: db/changelog/changes/16-create-order-table.yaml
+  - include:
+      file: db/changelog/changes/17-create-order-item-table.yaml
+  - include:
+      file: db/changelog/changes/18-create-association-table-order-order-item.yaml

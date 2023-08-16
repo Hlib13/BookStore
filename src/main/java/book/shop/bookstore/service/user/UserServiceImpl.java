@@ -1,4 +1,4 @@
-package book.shop.bookstore.service;
+package book.shop.bookstore.service.user;
 
 import book.shop.bookstore.dto.user.UserRegistrationRequestDto;
 import book.shop.bookstore.dto.user.UserResponseDto;
@@ -8,6 +8,7 @@ import book.shop.bookstore.model.Role;
 import book.shop.bookstore.model.RoleName;
 import book.shop.bookstore.model.User;
 import book.shop.bookstore.repository.user.UserRepository;
+import book.shop.bookstore.service.role.RoleService;
 import java.util.HashSet;
 import java.util.Set;
 import lombok.RequiredArgsConstructor;

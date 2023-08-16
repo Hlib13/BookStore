@@ -9,7 +9,6 @@ import book.shop.bookstore.model.Category;
 import book.shop.bookstore.repository.category.CategoryRepository;
 import java.util.List;
 import java.util.Set;
-
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -56,6 +55,6 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public Set<Book> getBooksByCategoryId(Long id) {
-      return categoryRepository.getBooksByCategoryId(id);
+        return categoryRepository.getBooksByCategoryId(id);
     }
 }

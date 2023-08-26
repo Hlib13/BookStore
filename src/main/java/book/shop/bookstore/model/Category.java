@@ -38,4 +38,8 @@ public class Category {
     @Column(nullable = false)
     private boolean isDeleted = false;
 
+    public void addBook(Book book) {
+        books.add(book);
+        book.getCategories().add(this);
+    }
 }

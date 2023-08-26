@@ -8,7 +8,6 @@ import book.shop.bookstore.exception.EntityNotFoundException;
 import book.shop.bookstore.model.Book;
 import book.shop.bookstore.model.Category;
 import book.shop.bookstore.repository.book.BookRepository;
-import java.util.stream.Collectors;
 import org.mapstruct.AfterMapping;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -29,7 +28,7 @@ public interface BookMapper {
         bookDto.setCategoryIds(book.getCategories()
                 .stream()
                 .map(Category::getId)
-                .collect(Collectors.toSet()));
+                .toList());
     }
 
     @Named("bookFromId")

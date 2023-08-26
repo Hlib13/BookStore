@@ -5,6 +5,9 @@ import book.shop.bookstore.dto.book.BookSearchParameters;
 import book.shop.bookstore.dto.book.CreateBookRequestDto;
 import book.shop.bookstore.service.book.BookService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import java.util.List;
@@ -41,6 +44,10 @@ public class BookController {
     @PostMapping
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @Operation(summary = "Create a new book", description = "Creating a new book")
+    @ApiResponse(responseCode = "200",
+            description = "Book created successfully",
+            content = {@Content(mediaType = "application/json",
+                    schema = @Schema(implementation = BookDto.class))})
     public BookDto createBook(@RequestBody @Valid CreateBookRequestDto requestDto) {
         return bookService.save(requestDto);
     }
@@ -55,6 +62,10 @@ public class BookController {
     @PutMapping("/{id}")
     @PreAuthorize("hasRole('ROLE_USER')")
     @Operation(summary = "Update book", description = "Change info of book")
+    @ApiResponse(responseCode = "200",
+            description = "Book updated successfully",
+            content = {@Content(mediaType = "application/json",
+                    schema = @Schema(implementation = BookDto.class))})
     public BookDto updateBook(@PathVariable Long id,
                               @RequestBody @Valid CreateBookRequestDto requestDto) {
         return bookService.update(id, requestDto);

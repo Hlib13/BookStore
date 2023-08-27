@@ -1,8 +1,8 @@
 package book.shop.bookstore.controller;
 
+import book.shop.bookstore.dto.book.BookDtoWithoutCategoryIds;
 import book.shop.bookstore.dto.category.CategoryDto;
 import book.shop.bookstore.dto.category.CreateCategoryRequestDto;
-import book.shop.bookstore.model.Book;
 import book.shop.bookstore.service.category.CategoryService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -11,7 +11,6 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import java.util.List;
-import java.util.Set;
 import lombok.RequiredArgsConstructor;
 import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.data.domain.Pageable;
@@ -83,7 +82,7 @@ public class CategoryController {
     @GetMapping("/{id}/books")
     @PreAuthorize("hasRole('ROLE_USER')")
     @Operation(summary = "Get list of books by category", description = "Use category id")
-    public Set<Book> getBooksByCategoryId(@PathVariable Long id) {
+    public List<BookDtoWithoutCategoryIds> getBooksByCategoryId(@PathVariable Long id) {
         return categoryService.getBooksByCategoryId(id);
     }
 }

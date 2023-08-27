@@ -39,7 +39,7 @@ public class CartItemController {
         cartItemService.deleteById(id);
     }
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasRole('ROLE_USER')")
     @PutMapping("/{id}")
     @Operation(summary = "Update cart-item by id",
             description = "Update available cart-item by id")
@@ -48,7 +48,7 @@ public class CartItemController {
         return cartItemService.update(id, requestDto);
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ROLE_USER')")
     @PostMapping
     @Operation(summary = "Add book to cartItem", description = "Add valid book to cartItem")
     public CartItemResponseDto addBook(@RequestBody @Valid CreatCartItemRequestDto requestDto) {

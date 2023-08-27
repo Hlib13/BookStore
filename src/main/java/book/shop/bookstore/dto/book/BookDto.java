@@ -13,7 +13,7 @@ public class BookDto {
     private String author;
     private String isbn;
     private BigDecimal price;
+    private List<Long> categoryIds;
     private String description;
     private String coverImage;
-    private List<Long> categoryIds;
 }

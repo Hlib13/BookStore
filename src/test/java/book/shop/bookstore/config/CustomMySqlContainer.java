@@ -13,7 +13,10 @@ public class CustomMySqlContainer extends MySQLContainer<CustomMySqlContainer> {
 
     public static synchronized CustomMySqlContainer getInstance() {
         if (mySqlContainer == null) {
-            mySqlContainer = new CustomMySqlContainer().withPassword("test").withUsername("test").withDatabaseName("book-store");
+            mySqlContainer = new CustomMySqlContainer()
+                    .withPassword("test")
+                    .withUsername("test")
+                    .withDatabaseName("book-store");
         }
         return mySqlContainer;
     }

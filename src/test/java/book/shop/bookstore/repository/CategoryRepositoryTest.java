@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import book.shop.bookstore.model.Book;
 import book.shop.bookstore.repository.category.CategoryRepository;
-import java.util.Set;
+import java.util.List;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +26,7 @@ public class CategoryRepositoryTest {
     @Test
     @DisplayName("Get all books by with two books in category")
     void getBooksByCategoriesIds_Ok() {
-        Set<Book> actual = categoryRepository.getBooksByCategoryId(1L);
+        List<Book> actual = categoryRepository.getBooksByCategoryId(1L);
         assertNotNull(actual);
         assertEquals(2, actual.size());
     }
@@ -38,7 +38,7 @@ public class CategoryRepositoryTest {
     @Test
     @DisplayName("Get all books by with one book in category")
     void getBooksByCategoriesId_Ok() {
-        Set<Book> actual = categoryRepository.getBooksByCategoryId(2L);
+        List<Book> actual = categoryRepository.getBooksByCategoryId(2L);
         assertNotNull(actual);
         assertEquals(1, actual.size());
     }
@@ -50,7 +50,7 @@ public class CategoryRepositoryTest {
     @Test
     @DisplayName("Get empty list of books by non-existent category")
     void getBooksByCategoriesId_NotOk() {
-        Set<Book> actual = categoryRepository.getBooksByCategoryId(10L);
+        List<Book> actual = categoryRepository.getBooksByCategoryId(10L);
         assertNotNull(actual);
         assertEquals(0, actual.size());
     }

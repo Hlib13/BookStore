@@ -60,7 +60,7 @@ public class BookController {
     }
 
     @PutMapping("/{id}")
-    @PreAuthorize("hasRole('ROLE_USER')")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @Operation(summary = "Update book", description = "Change info of book")
     @ApiResponse(responseCode = "200",
             description = "Book updated successfully",

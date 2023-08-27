@@ -118,9 +118,9 @@ public class BookControllerTest {
             executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
     @Sql(scripts = "classpath:database/book/delete-all-book&category.sql",
             executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
-    @DisplayName("Update book with id 3")
+    @DisplayName("Update book with id 1")
     public void updateBook_Ok() throws Exception {
-        long bookId = 3;
+        long bookId = 1;
         CreateBookRequestDto updateBookRequestDto = createBook().setIsbn("12345");
         updateBookRequestDto.setTitle("Updated book");
         String request = objectMapper.writeValueAsString(updateBookRequestDto);
@@ -167,7 +167,7 @@ public class BookControllerTest {
     public void searchBookByAuthor_Ok() throws Exception {
         MvcResult mvcResult = mockMvc.perform(
                         get("/books/search")
-                                .param("author", "Someone"))
+                                .param("authors", "Someone"))
                 .andExpect(status().isOk())
                 .andReturn();
         List<BookDto> actual = objectMapper.readValue(mvcResult
@@ -187,7 +187,7 @@ public class BookControllerTest {
     public void searchBookByTitle_Ok() throws Exception {
         MvcResult mvcResult = mockMvc.perform(
                         get("/books/search")
-                                .param("title", "Avatar"))
+                                .param("titles", "Avatar"))
                 .andExpect(status().isOk())
                 .andReturn();
         List<BookDto> actual = objectMapper.readValue(mvcResult
@@ -221,11 +221,11 @@ public class BookControllerTest {
 
     private static CreateBookRequestDto createBook() {
         return new CreateBookRequestDto()
-                .setDescription("New Book")
-                .setCoverImage("new-book.jpg")
-                .setAuthor("New author")
+                .setDescription("new world")
+                .setCoverImage("avatar-new-world.jpg")
+                .setAuthor("Someone")
                 .setIsbn("1234578")
-                .setTitle("New Book")
+                .setTitle("Avatar")
                 .setPrice(new BigDecimal("19.99"))
                 .setCategoryIds(List.of(1L));
     }

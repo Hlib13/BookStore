@@ -28,6 +28,10 @@ import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
+@Sql(scripts = "classpath:database/book/add-books-and-categories.sql",
+        executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
+@Sql(scripts = "classpath:database/book/delete-all-book&category.sql",
+        executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class CategoryControllerTest {
     protected static MockMvc mockMvc;
@@ -44,10 +48,6 @@ public class CategoryControllerTest {
 
     @Test
     @WithMockUser
-    @Sql(scripts = "classpath:database/book/add-books-and-categories.sql",
-            executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
-    @Sql(scripts = "classpath:database/book/delete-all-book&category.sql",
-            executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
     @DisplayName("Get all categories, expected size 2")
     void getAllCategories_Ok() throws Exception {
         MvcResult mvcResult = mockMvc.perform(
@@ -62,10 +62,6 @@ public class CategoryControllerTest {
 
     @Test
     @WithMockUser(username = "admin", roles = {"ADMIN"})
-    @Sql(scripts = "classpath:database/book/add-books-and-categories.sql",
-            executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
-    @Sql(scripts = "classpath:database/book/delete-all-book&category.sql",
-            executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
     @DisplayName("Creat category")
     void creatCategory_Ok() throws Exception {
         CreateCategoryRequestDto categoryRequestDto = new CreateCategoryRequestDto();
@@ -90,10 +86,6 @@ public class CategoryControllerTest {
 
     @Test
     @WithMockUser(username = "admin", roles = {"ADMIN"})
-    @Sql(scripts = "classpath:database/book/add-books-and-categories.sql",
-            executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
-    @Sql(scripts = "classpath:database/book/delete-all-book&category.sql",
-            executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
     @DisplayName("Update category")
     void updateCategory_Ok() throws Exception {
         Long categoryId = 1L;
@@ -118,10 +110,6 @@ public class CategoryControllerTest {
 
     @Test
     @WithMockUser(username = "admin", roles = {"ADMIN"})
-    @Sql(scripts = "classpath:database/book/add-books-and-categories.sql",
-            executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
-    @Sql(scripts = "classpath:database/book/delete-all-book&category.sql",
-            executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
     @DisplayName("Update category with wrong id 999, expected status not found")
     void updateCategory_NotOk() throws Exception {
         Long categoryId = 999L;
@@ -137,10 +125,6 @@ public class CategoryControllerTest {
 
     @Test
     @WithMockUser
-    @Sql(scripts = "classpath:database/book/add-books-and-categories.sql",
-            executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
-    @Sql(scripts = "classpath:database/book/delete-all-book&category.sql",
-            executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
     @DisplayName("Get category by id")
     void getCategoryById_Ok() throws Exception {
         MvcResult mvcResult = mockMvc.perform(get("/categories/{id}", 1L))
@@ -156,10 +140,6 @@ public class CategoryControllerTest {
 
     @Test
     @WithMockUser
-    @Sql(scripts = "classpath:database/book/add-books-and-categories.sql",
-            executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
-    @Sql(scripts = "classpath:database/book/delete-all-book&category.sql",
-            executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
     @DisplayName("Get category by wrong id")
     void getCategoryById_NotOk() throws Exception {
         mockMvc.perform(get("/categories/{id}", 999L))
@@ -168,10 +148,6 @@ public class CategoryControllerTest {
 
     @Test
     @WithMockUser
-    @Sql(scripts = "classpath:database/book/add-books-and-categories.sql",
-            executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
-    @Sql(scripts = "classpath:database/book/delete-all-book&category.sql",
-            executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
     @DisplayName("Get books by category id 1, expected size 2")
     void getBookByCategoryId_Ok() throws Exception {
         MvcResult mvcResult = mockMvc.perform(get("/categories/{id}/books", 1L))
@@ -186,10 +162,6 @@ public class CategoryControllerTest {
 
     @Test
     @WithMockUser
-    @Sql(scripts = "classpath:database/book/add-books-and-categories.sql",
-            executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
-    @Sql(scripts = "classpath:database/book/delete-all-book&category.sql",
-            executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
     @DisplayName("Get books by category id 999 exception")
     void getBookByCategoryId_NotOk() throws Exception {
         mockMvc.perform(get("/categories/{id}/books", 999L))
@@ -198,10 +170,6 @@ public class CategoryControllerTest {
 
     @Test
     @WithMockUser(username = "admin", roles = {"ADMIN"})
-    @Sql(scripts = "classpath:database/book/add-books-and-categories.sql",
-            executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
-    @Sql(scripts = "classpath:database/book/delete-all-book&category.sql",
-            executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
     @DisplayName("Delete category")
     void deleteCategory_Ok() throws Exception {
         mockMvc.perform(delete("/categories/{id}", 1L))
@@ -210,10 +178,6 @@ public class CategoryControllerTest {
 
     @Test
     @WithMockUser(username = "admin", roles = {"ADMIN"})
-    @Sql(scripts = "classpath:database/book/add-books-and-categories.sql",
-            executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
-    @Sql(scripts = "classpath:database/book/delete-all-book&category.sql",
-            executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
     @DisplayName("Delete category by wrong Id")
     void deleteCategory_NotOk() throws Exception {
         mockMvc.perform(delete("/categories/{id}", 999L))

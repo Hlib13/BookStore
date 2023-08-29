@@ -28,6 +28,10 @@ import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
+@Sql(scripts = "classpath:database/book/add-books-and-categories.sql",
+        executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
+@Sql(scripts = "classpath:database/book/delete-all-book&category.sql",
+        executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class BookControllerTest {
     protected static MockMvc mockMvc;
@@ -35,8 +39,6 @@ public class BookControllerTest {
     private ObjectMapper objectMapper;
 
     @BeforeAll
-    @Sql(scripts = "classpath:database/book/delete-all-book&category.sql",
-            executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
     static void beforeAll(@Autowired WebApplicationContext context) {
         mockMvc = MockMvcBuilders
                 .webAppContextSetup(context)
@@ -46,10 +48,6 @@ public class BookControllerTest {
 
     @Test
     @WithMockUser
-    @Sql(scripts = "classpath:database/book/add-books-and-categories.sql",
-            executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
-    @Sql(scripts = "classpath:database/book/delete-all-book&category.sql",
-            executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
     @DisplayName("Get all books(2)")
     public void getAllBooks_Ok() throws Exception {
         MvcResult mvcResult = mockMvc.perform(get("/books"))
@@ -65,10 +63,6 @@ public class BookControllerTest {
     @Test
     @WithMockUser
     @DisplayName("Get book by id 1")
-    @Sql(scripts = "classpath:database/book/add-books-and-categories.sql",
-            executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
-    @Sql(scripts = "classpath:database/book/delete-all-book&category.sql",
-            executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
     public void getBookById_Ok() throws Exception {
         MvcResult result = mockMvc.perform(get("/books/{id}", 1L)
                 .contentType(MediaType.APPLICATION_JSON))
@@ -92,10 +86,6 @@ public class BookControllerTest {
     @Test
     @WithMockUser(username = "admin", roles = {"ADMIN"})
     @DisplayName("Create a book")
-    @Sql(scripts = "classpath:database/book/add-books-and-categories.sql",
-            executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
-    @Sql(scripts = "classpath:database/book/delete-all-book&category.sql",
-            executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
     public void createBook_Ok() throws Exception {
         CreateBookRequestDto createBookRequestDto = createBook();
         String request = objectMapper.writeValueAsString(createBookRequestDto);
@@ -114,10 +104,6 @@ public class BookControllerTest {
 
     @Test
     @WithMockUser(username = "admin", roles = {"ADMIN"})
-    @Sql(scripts = "classpath:database/book/add-books-and-categories.sql",
-            executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
-    @Sql(scripts = "classpath:database/book/delete-all-book&category.sql",
-            executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
     @DisplayName("Update book with id 1")
     public void updateBook_Ok() throws Exception {
         long bookId = 1;
@@ -143,8 +129,6 @@ public class BookControllerTest {
     @Test
     @WithMockUser(username = "admin", roles = {"ADMIN"})
     @DisplayName("Update book with wrong id 999, expected not found status")
-    @Sql(scripts = "classpath:database/book/delete-all-book&category.sql",
-            executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
     public void updateBook_NotOk() throws Exception {
         long bookId = 999;
         CreateBookRequestDto updateBookRequestDto = createBook().setIsbn("123456789990");
@@ -159,10 +143,6 @@ public class BookControllerTest {
 
     @Test
     @WithMockUser
-    @Sql(scripts = "classpath:database/book/add-books-and-categories.sql",
-            executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
-    @Sql(scripts = "classpath:database/book/delete-all-book&category.sql",
-            executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
     @DisplayName("Search book by author Someone, expected 1 book")
     public void searchBookByAuthor_Ok() throws Exception {
         MvcResult mvcResult = mockMvc.perform(
@@ -179,10 +159,6 @@ public class BookControllerTest {
 
     @Test
     @WithMockUser
-    @Sql(scripts = "classpath:database/book/add-books-and-categories.sql",
-            executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
-    @Sql(scripts = "classpath:database/book/delete-all-book&category.sql",
-            executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
     @DisplayName("Search book by title, expected 1 book")
     public void searchBookByTitle_Ok() throws Exception {
         MvcResult mvcResult = mockMvc.perform(
@@ -199,10 +175,6 @@ public class BookControllerTest {
 
     @Test
     @WithMockUser(username = "admin", roles = {"ADMIN"})
-    @Sql(scripts = "classpath:database/book/add-books-and-categories.sql",
-            executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
-    @Sql(scripts = "classpath:database/book/delete-all-book&category.sql",
-            executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
     @DisplayName("Delete book by id 1")
     public void deleteBookById1_Ok() throws Exception {
         mockMvc.perform(

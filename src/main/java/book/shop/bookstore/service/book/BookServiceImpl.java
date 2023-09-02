@@ -6,9 +6,14 @@ import book.shop.bookstore.dto.book.CreateBookRequestDto;
 import book.shop.bookstore.exception.EntityNotFoundException;
 import book.shop.bookstore.mapper.BookMapper;
 import book.shop.bookstore.model.Book;
+import book.shop.bookstore.model.Category;
 import book.shop.bookstore.repository.book.BookRepository;
 import book.shop.bookstore.repository.book.BookSpecificationBuilder;
+import book.shop.bookstore.repository.category.CategoryRepository;
 import java.util.List;
+import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
@@ -19,11 +24,15 @@ import org.springframework.stereotype.Service;
 public class BookServiceImpl implements BookService {
     private final BookRepository bookRepository;
     private final BookMapper bookMapper;
+    private final CategoryRepository categoryRepository;
     private final BookSpecificationBuilder bookSpecificationBuilder;
 
     @Override
-    public BookDto save(CreateBookRequestDto book) {
-        return bookMapper.toDto(bookRepository.save(bookMapper.toModel(book)));
+    public BookDto save(CreateBookRequestDto bookRequestDto) {
+        Book book = bookMapper.toModel(bookRequestDto);
+        getCategoriesByIds(bookRequestDto.getCategoryIds())
+                .forEach(category -> category.addBook(book));
+        return bookMapper.toDto(bookRepository.save(book));
     }
 
     @Override
@@ -46,6 +55,8 @@ public class BookServiceImpl implements BookService {
             throw new EntityNotFoundException("Can't found book with id:" + id);
         }
         Book book = bookMapper.toModel(createBookRequestDto);
+        getCategoriesByIds(createBookRequestDto.getCategoryIds())
+                .forEach(category -> category.addBook(book));
         book.setId(id);
         return bookMapper.toDto(bookRepository.save(book));
     }
@@ -65,5 +76,12 @@ public class BookServiceImpl implements BookService {
             throw new EntityNotFoundException("Can't delete book with id:" + id);
         }
         bookRepository.deleteById(id);
+    }
+
+    private Set<Category> getCategoriesByIds(List<Long> ids) {
+        return ids.stream()
+                .map(categoryRepository::findById)
+                .flatMap(Optional::stream)
+                .collect(Collectors.toSet());
     }
 }
